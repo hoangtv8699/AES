@@ -101,14 +101,4 @@ class AES:
         return "".join([chr(blocks[i]) for i in range(len(blocks))])
 
     def decrypt_ctr(self, cipher):
-        iv = self.iv
-
-        blocks = []
-        nonce = iv.copy()
-        for cipher_block in self.split_bytes(cipher):
-            cipher_block_bytes = [ord(c) for c in cipher_block]
-            block = self.strxor_bytes(cipher_block_bytes, self.aes.encrypt(nonce))
-            blocks.extend(block)
-            nonce = self.inc_bytes(nonce)
-
-        return "".join([chr(blocks[i]) for i in range(len(blocks))])
+        return self.encrypt_ctr(cipher)
